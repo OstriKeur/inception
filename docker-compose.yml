@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   mariadb:
     image: mariadb:user
@@ -5,16 +7,32 @@ services:
     build: ./srcs/mariadb
     volumes:
       - mariadb:/var/lib/mysql
-    env_file :
+    env_file:
       - .env
-    networks :
+    networks:
       - inception
     restart: always
     healthcheck:
-      test: ["CMD", "nc", "-zv", "mariadb", "3306"]
-      interval: 1s
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
       timeout: 5s
       retries: 10
+
+  wordpress:
+    image: wordpress:user
+    container_name: wordpress
+    build: ./srcs/wordpress
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress:/var/www/wordpress
+    env_file:
+      - .env
+    networks:
+      - inception
+    restart: always
+    entrypoint: ["./wait-for-it.sh", "mariadb:3306", "--", "docker-entrypoint.sh"]
+
   nginx:
     image: nginx:user
     container_name: nginx
@@ -28,37 +46,24 @@ services:
     networks:
       - inception
     restart: always
-  wordpress:
-    image: wordpress:user
-    container_name: wordpress
-    build: ./srcs/wordpress
-    depends_on:
-      mariadb:
-        condition: service_healthy
-    volumes:
-      - wordpress:/var/www/wordpress
-    env_file :
-      - .env
-    networks:
-      - inception
-    restart: always
 
 volumes:
   mariadb:
     name: mariadb
     driver: local
     driver_opts:
-      device: ~/data/mariadb
-      o : bind
-      type : none
+      device: /home/smorin/data/mariadb
+      o: bind
+      type: none
   wordpress:
     name: wordpress
     driver: local
     driver_opts:
-      device: ~data/wordpress
-      o : bind
-      type : none
+      device: /home/smorin/data/wordpress
+      o: bind
+      type: none
 
 networks:
   inception:
     name: inception
+
