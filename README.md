@@ -64,30 +64,25 @@ inception/
 
 ## Configuration
 
-### Variables d'environnement
-
 Les services sont configurés via des variables d'environnement dans `docker-compose.yml` :
-
 - **Mariadb** : Base de données, utilisateur, mot de passe
 - **WordPress** : Configuration de connexion à la base de données
 - **Nginx** : Configuration SSL/TLS, domaines
-
-### SSL/TLS
 
 Le projet inclut la configuration SSL avec des certificats pour le développement.
 
 ## Ce que j'ai appris
 
-- **Docker** : Création et optimisation d'images Docker
-- **Docker Compose** : Orchestration de services multiples
-- **Multi-stage builds** : Optimisation des images Docker
-- **Volumes et bind mounts** : Gestion de la persistance des données
-- **Réseaux Docker** : Isolation et communication entre conteneurs
-- **Nginx** : Configuration de reverse proxy et SSL
-- **MariaDB** : Configuration de base de données
-- **WordPress** : Configuration et déploiement
-- **Infrastructure as Code** : Gestion d'infrastructure avec fichiers de configuration
-- **Scripts shell** : Automatisation de la configuration
+- Création et optimisation d'images Docker
+- Orchestration de services multiples avec Docker Compose
+- Multi-stage builds pour optimiser les images
+- Gestion de la persistance des données avec volumes et bind mounts
+- Isolation et communication entre conteneurs avec réseaux Docker
+- Configuration de reverse proxy et SSL avec Nginx
+- Configuration de base de données avec MariaDB
+- Configuration et déploiement de WordPress
+- Gestion d'infrastructure avec fichiers de configuration
+- Automatisation de la configuration avec scripts shell
 
 ## Sécurité
 
@@ -95,23 +90,6 @@ Le projet inclut la configuration SSL avec des certificats pour le développemen
 - Configuration SSL/TLS
 - Isolation des services avec réseaux Docker
 - Volumes nommés pour la persistance sécurisée
-
-## Services
-
-### Nginx
-- Reverse proxy pour WordPress
-- Gestion SSL/TLS
-- Configuration de domaines
-
-### WordPress
-- CMS complet
-- Connexion à MariaDB
-- Configuration via scripts shell
-
-### MariaDB
-- Base de données relationnelle
-- Configuration via scripts
-- Volumes pour persistance
 
 ## Commandes utiles
 
